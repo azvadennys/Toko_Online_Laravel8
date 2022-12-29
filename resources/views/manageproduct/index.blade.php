@@ -4,12 +4,15 @@
 <div class="container">
     <div class="row justify-content-between my-4">
         <div class="col-4">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Product Name" aria-label="Product Name"
-                    aria-describedby="button-addon2">
-                <button class="btn btn-secondary" type="button" id="button-addon2">
-                    <i class=" bi bi-search"></i></button>
-            </div>
+            <form action="" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Product Name" name="search"
+                        value="{{ request('search') }}">
+                    <button class="btn btn-secondary" type="submit" id="button-addon2">
+                        <i class=" bi bi-search"></i></button>
+
+                </div>
+            </form>
         </div>
         <div class="col-2"><a href="/add-product">
                 <button class="btn btn-secondary">Add Product <i class="bi bi-plus"></i></button></a>
@@ -24,10 +27,10 @@
     <div class="row justify-content-center">
 
         @if($product->first() == NULL)
-            <div class="alert alert-warning my-1 alert-dismissible fade show" role="alert">
-                Tidak Ada Data
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <div class="alert alert-warning my-1 alert-dismissible fade show" role="alert">
+            Tidak Ada Data
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         @endif
         @foreach ($product as $index)
         <div class="card mb-3">

@@ -13,12 +13,12 @@ class ProductController extends Controller
     public function manageproduct()
     {
         $data = [
-            'product' => product::paginate(10)->withQueryString(),
+            'product' => product::filter(request(['search']))->orderBy('name', 'ASC')->paginate(10)->withQueryString(),
             // 'category' => CategoryModel::all(),
         ];
         return view('manageproduct.index', $data);
     }
-   
+
     public function productcategory($id)
     {
         $data = [

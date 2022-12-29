@@ -16,7 +16,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             @endif
-
+            @php
+            $total = 0;
+            @endphp
             @foreach ($cart as $index)
             <div class="card mb-3">
                 <div class="row g-0">
@@ -64,13 +66,16 @@
             @endforeach
         </div>
     </div>
+    @if($cart->first() != NULL)
     <div class="row justify-content-center">
-        <div class="col-8">
-            <h3>Total Price : {{ $total }}</h3>
+        <div class="col-12">
+            <h3 class="text-center">Total Price : IDR {{number_format($total,0,',','.');}}</h3>
 
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+
+        <a href="/purchase" class="text-center"><button type="button"
+                class="btn col-2 btn-success align-self-center">Purchase</button></a>
     </div>
-</div>
+    @endif
 </div>
 @endsection

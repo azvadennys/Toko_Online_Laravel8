@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\CartModel;
 use App\Models\CategoryModel;
+use App\Models\DetailTransactionModel;
 use App\Models\product;
+use App\Models\TransactionModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -40,5 +42,31 @@ class CartController extends Controller
         ];
         // dd($data['cart']);
         return view('product.cart', $data);
+    }
+    public function purchase()
+    {
+        $cart = CartModel::where('user_id', auth()->user()->id)->get();
+
+        $total = 0;
+        $qty = 0;
+        foreach ($cart as $index) {
+            $total += $index->quantity * $index->productdetail->price;
+            $qty += $index->quantity;
+        }
+        $idtransaction = TransactionModel::create([
+            'user_id' => auth()->user()->id,
+            'total' => $total,
+            'quantity' => $qty,
+        ])->id;
+        foreach ($cart as $index) {
+            DetailTransactionModel::create([
+                'transaction_id' => $idtransaction,
+                'product_id' => $index->product_id,
+                'quantity' => $index->quantity,
+                'price' => $index->productdetail->price,
+            ]);
+            CartModel::where('id', $index->id)->delete();
+        }
+        return redirect('/history')->with('success', 'Berhasil melakukan pemesanan');
     }
 }

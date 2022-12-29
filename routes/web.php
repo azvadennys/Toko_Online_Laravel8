@@ -33,11 +33,13 @@ Route::post('/create-product', [App\Http\Controllers\ProductController::class, '
 Route::get('/delete-product/{id}', [App\Http\Controllers\ProductController::class, 'deleteproduct']);
 Route::get('/detail-product/{id}', [App\Http\Controllers\ProductController::class, 'detailproduct']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile']);
 
 Route::get('/product-category/{id}', [App\Http\Controllers\ProductController::class, 'productcategory']);
 Route::post('/search-product', [App\Http\Controllers\ProductController::class, 'searchproduct']);
 
-
+Route::get('/history', [App\Http\Controllers\TransactionController::class, 'history']);
+Route::get('/purchase', [App\Http\Controllers\CartController::class, 'purchase']);
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart']);
 Route::get('/delete-cart/{id}', [App\Http\Controllers\CartController::class, 'deletecart']);
 Route::post('/create-cart-product/{id}', [App\Http\Controllers\CartController::class, 'createcart']);

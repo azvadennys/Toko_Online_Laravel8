@@ -56,9 +56,13 @@
                                 @endforeach
                             </div>
                         </li>
+                        @auth
+                        @if(auth()->user()->role =='admin')
                         <li class="nav-item">
                             <a class="nav-link" href="/manage-product">Manage Product</a>
                         </li>
+                        @endif
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -90,6 +94,14 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/profile">
+                                    {{ __('Profile') }}
+                                </a>
+                                @if(auth()->user()->role !='admin')
+                                <a class="dropdown-item" href="/history">
+                                    {{ __('History Page') }}
+                                </a>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}

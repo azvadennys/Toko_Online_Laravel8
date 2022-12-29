@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class DetailTransactionModel extends Model
+{
+    use HasFactory;
+    protected $table = 'detail_transaction';
+    protected $with = ['productdetail'];
+    protected $guarded = NULL;
+    public function productdetail()
+    {
+        return $this->hasOne(product::class, 'id', 'product_id');
+    }
+}
