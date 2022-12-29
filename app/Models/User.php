@@ -24,6 +24,7 @@ class User extends Authenticatable
         'gander',
         'birth',
         'country',
+        'role',
     ];
 
     /**

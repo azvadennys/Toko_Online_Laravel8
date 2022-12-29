@@ -124,7 +124,7 @@
                                     @endforeach
                                 </select>
 
-                                @error('birth')
+                                @error('country')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

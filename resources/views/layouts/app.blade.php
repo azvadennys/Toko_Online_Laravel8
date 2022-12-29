@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -17,6 +18,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="{{ asset('bootstrap')}}/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
     <!-- Styles -->
     {{--
@@ -39,13 +41,31 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        <li class="nav-item dropdown">
+                            <a id="category" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Category
+                            </a>
 
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="category">
+                                @php $listcategory = category();@endphp
+                                @foreach ($listcategory as $index)
+                                <a class="dropdown-item" href="/product-category/{{ $index->id }}">{{ $index->name
+                                    }}</a>
+                                {{-- @php dd($category) @endphp --}}
+                                @endforeach
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/manage-product">Manage Product</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
+
                         @if (Route::has('login'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -58,6 +78,11 @@
                         </li>
                         @endif
                         @else
+                        @if(auth()->user()->role == 'customer')
+                        <li class="nav-item">
+                            <a class="nav-link" href="/cart"><i class="bi bi-cart"> Cart</i></a>
+                        </li>
+                        @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
